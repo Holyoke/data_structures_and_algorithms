@@ -14,7 +14,7 @@ class Link
   def to_s
     left = @value
     right = @next.nil? ? "nil" : @next.value
-    
+
     "#{left} -> #{right}"
   end
 
@@ -23,6 +23,21 @@ class Link
     link.prev = self
 
     @next
+  end
+
+  def insert_left(link)
+    @prev = link
+    link.next = self
+
+    @next
+  end
+
+  def remove
+    @prev.next = @next
+    @next.prev = @prev
+
+    @next, @prev = nil, nil
+    nil
   end
 
 end
