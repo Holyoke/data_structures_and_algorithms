@@ -42,3 +42,10 @@ class Link
   protected
   attr_writer :prev, :next, :value
 end
+
+class SentinelLink < Link
+  def initialize(side)
+    raise "incorrect side choice" if [:first, :last].include?(side)
+    @side = side
+  end
+end
