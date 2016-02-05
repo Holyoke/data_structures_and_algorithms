@@ -95,3 +95,34 @@ describe "Link#" do
 
 #Link end
 end
+
+describe "Sentinel Link" do
+  subject(:first_sentinel) { SentinelLink.new{:first}}
+  subject(:last_sentinel) { SentinelLink.new{:last}}
+
+  it "raises an error if no side specified" do
+    expect{SentinelLink.new()}.to raise_error(RuntimeError, "incorrect side choice")
+    expect{SentinelLink.new(:left)}.to raise_error(RuntimeError)
+  end
+
+  it "raises an error upon getting a value" do
+    first_sentinel = SentinelLink.new(:first)
+    expect{ a = first_sentinel.value }.to raise_error(RuntimeError, "Sentinel don't contain data")
+  end
+
+  it "raises an error upon setting a value" do
+    first_sentinel = SentinelLink.new(:first)
+    expect{ first_sentinel.value = "a" }.to raise_error(RuntimeError, "cannot set values on sentinel")
+  end
+
+
+  it "raises an error calling #remove"
+
+  context "setting prev/next" do
+    it "moves a first sentinel over setting next"
+
+    it "moves the last sentinel over setting prev"
+
+    it "raises an error"
+  end
+end

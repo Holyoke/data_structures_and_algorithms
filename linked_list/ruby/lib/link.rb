@@ -4,6 +4,7 @@ require "byebug"
 
 class Link
   attr_reader :next, :prev, :value
+  attr_writer :value
 
   def initialize(value = nil)
     @value = value
@@ -40,12 +41,24 @@ class Link
   end
 
   protected
-  attr_writer :prev, :next, :value
+  attr_writer :prev, :next
 end
 
 class SentinelLink < Link
-  def initialize(side)
-    raise "incorrect side choice" if [:first, :last].include?(side)
+
+  def initialize(side = nil)
+    raise "incorrect side choice" unless [:first, :last].include?(side)
     @side = side
   end
+
+  def value
+    raise "Sentinel don't contain data"
+  end
+
+  def value=(data)
+    raise "cannot set values on sentinel"
+  end
+
+
+
 end
