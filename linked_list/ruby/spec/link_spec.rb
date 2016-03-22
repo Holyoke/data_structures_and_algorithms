@@ -1,4 +1,5 @@
 require "link"
+require 'byebug'
 
 describe "Link#" do
   subject(:link_1) { Link.new("a")}
@@ -97,26 +98,25 @@ describe "Link#" do
 end
 
 describe "Sentinel Link" do
-  subject(:first_sentinel) { SentinelLink.new{:first}}
-  subject(:last_sentinel) { SentinelLink.new{:last}}
+  let!(:first_sentinel) { SentinelLink.new(:first) }
 
-  it "raises an error if no side specified" do
+  it "raises an error if no correct side specified" do
     expect{SentinelLink.new()}.to raise_error(RuntimeError, "incorrect side choice")
-    expect{SentinelLink.new(:left)}.to raise_error(RuntimeError)
+    expect{SentinelLink.new(:left)}.to raise_error(RuntimeError, "incorrect side choice")
   end
 
   it "raises an error upon getting a value" do
-    first_sentinel = SentinelLink.new(:first)
     expect{ a = first_sentinel.value }.to raise_error(RuntimeError, "Sentinel don't contain data")
   end
 
   it "raises an error upon setting a value" do
-    first_sentinel = SentinelLink.new(:first)
     expect{ first_sentinel.value = "a" }.to raise_error(RuntimeError, "cannot set values on sentinel")
   end
 
 
-  it "raises an error calling #remove"
+  it "raises an error while calling #remove" do
+    expect{ first_sentinel.remove }.to raise_error(RuntimeError, "cannot remove a sentinel")
+  end
 
   context "setting prev/next" do
     it "moves a first sentinel over setting next"

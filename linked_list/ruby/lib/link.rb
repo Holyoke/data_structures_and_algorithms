@@ -59,6 +59,7 @@ class SentinelLink < Link
     raise "cannot set values on sentinel"
   end
 
-
-
+  def remove
+    raise "cannot remove a sentinel"
+  end
 end
